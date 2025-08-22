@@ -1,0 +1,1212 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Model AI Chat Assistant | Gemini, GPT, Claude & More</title>
+    <meta name="description" content="Free multi-model AI chat assistant with support for Gemini, OpenAI GPT, Claude, and other AI APIs. Ask questions via text or voice with intelligent queue management.">
+    <meta name="keywords" content="AI chat, Gemini API, OpenAI GPT, Claude AI, multi-model AI, chatbot, voice assistant, queue system, AI assistant, free chatbot">
+    <meta name="author" content="AI Assistant Team">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="Multi-Model AI Chat Assistant | Gemini, GPT, Claude & More">
+    <meta property="og:description" content="Free AI chat assistant with voice input and intelligent question queue management supporting multiple AI models.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://yourdomain.com/images/ai-chat-preview.jpg">
+    <meta property="og:site_name" content="AI Chat Assistant">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Multi-Model AI Chat Assistant">
+    <meta name="twitter:description" content="Free AI chat assistant with voice input and intelligent question queue management.">
+    <meta name="twitter:image" content="https://yourdomain.com/images/ai-chat-preview.jpg">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Multi-Model AI Chat Assistant",
+      "description": "AI-powered chat assistant with voice input and question queue management supporting Gemini, OpenAI GPT, Claude, and more",
+      "applicationCategory": "CommunicationApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "AI Assistant Team"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6e8efb;
+            --secondary-color: #a777e3;
+            --accent-color: #ff6b81;
+            --dark-color: #1a237e;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --gray-color: #6c757d;
+            --dark-bg: #1a237e;
+            --light-bg: #f8f9fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), #311b92, #4527a0);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .api-key-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .model-selector {
+            margin-bottom: 15px;
+        }
+
+        #model-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+        }
+
+        #api-key-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+        }
+
+        #api-endpoint {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        #save-api-key {
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            color: var(--primary-color);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        #save-api-key:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .saved-models {
+            margin-top: 20px;
+        }
+
+        .saved-model-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .saved-model-name {
+            font-size: 14px;
+        }
+
+        .model-delete {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .queue-section {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .queue-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .queue-title i {
+            margin-right: 10px;
+        }
+
+        .queue-list {
+            list-style-type: none;
+        }
+
+        .queue-item {
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.15);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .queue-item .remove-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .queue-item .remove-btn:hover {
+            opacity: 1;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background-color: var(--light-bg);
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-header h2 {
+            color: var(--primary-color);
+            font-size: 22px;
+        }
+
+        .status-indicator {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .chat-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: var(--light-bg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user-message {
+            align-self: flex-end;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+        }
+
+        .message-content {
+            padding: 15px 20px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            line-height: 1.5;
+        }
+
+        .user-message .message-content {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .ai-message .message-content {
+            background-color: white;
+            color: #333;
+            border-bottom-left-radius: 5px;
+            border: 1px solid #eee;
+        }
+
+        .message-meta {
+            font-size: 12px;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: white;
+            border-radius: 18px;
+            border-bottom-left-radius: 5px;
+            margin-bottom: 15px;
+            align-self: flex-start;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eee;
+        }
+
+        .typing-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            margin-right: 5px;
+            animation: typing-animation 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing-animation {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .input-container {
+            padding: 20px;
+            background-color: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        #question-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #question-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(110, 142, 251, 0.2);
+        }
+
+        .voice-btn {
+            margin-left: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(110, 142, 251, 0.3);
+        }
+
+        .voice-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(110, 142, 251, 0.4);
+        }
+
+        .voice-btn.listening {
+            background: linear-gradient(135deg, var(--danger-color), var(--accent-color));
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(255, 71, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+        }
+
+        #send-btn {
+            margin-left: 15px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(110, 142, 251, 0.3);
+        }
+
+        #send-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(110, 142, 251, 0.4);
+        }
+
+        #send-btn:active {
+            transform: translateY(0);
+        }
+
+        #send-btn:disabled {
+            background: #ccc;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .voice-status {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+            background-color: var(--light-bg);
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .sidebar {
+                width: 100%;
+                max-height: 400px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+        }
+
+        /* SEO Content Section */
+        .seo-content {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .seo-content h2 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .seo-content h3 {
+            color: #4527a0;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .seo-content p {
+            margin-bottom: 20px;
+            line-height: 1.7;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .seo-content ul {
+            margin-left: 25px;
+            margin-bottom: 25px;
+        }
+
+        .seo-content li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .feature-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .feature-card h4 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .faq-section {
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: #444;
+            line-height: 1.6;
+            font-size: 16px;
+            display: none;
+            padding-top: 10px;
+        }
+
+        .faq-answer.show {
+            display: block;
+        }
+
+        .model-info {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .model-info h4 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+
+        .model-info ul {
+            margin-left: 20px;
+        }
+
+        .model-info li {
+            margin-bottom: 8px;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .privacy-note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: var(--success-color);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification">API key saved successfully!</div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <h1><i class="fas fa-robot" aria-hidden="true"></i> AI Voice Assistant</h1>
+                <p>Multi-Model AI Support</p>
+            </div>
+            
+            <div class="api-key-section">
+                <div class="model-selector">
+                    <select id="model-select">
+                        <option value="gemini-pro">Google Gemini Pro</option>
+                        <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                        <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                        <option value="gpt-3.5-turbo">OpenAI GPT-3.5 Turbo</option>
+                        <option value="gpt-4">OpenAI GPT-4</option>
+                        <option value="claude-3-sonnet">Anthropic Claude 3 Sonnet</option>
+                        <option value="claude-3-opus">Anthropic Claude 3 Opus</option>
+                        <option value="llama2">Meta Llama 2</option>
+                        <option value="llama3">Meta Llama 3</option>
+                        <option value="mistral">Mistral AI</option>
+                        <option value="custom">Custom API</option>
+                    </select>
+                </div>
+                
+                <input type="password" id="api-key-input" placeholder="Enter your API key">
+                <input type="text" id="api-endpoint" placeholder="API endpoint (for custom models)">
+                
+                <button id="save-api-key"><i class="fas fa-key" aria-hidden="true"></i> Save API Key</button>
+            </div>
+            
+            <div class="saved-models">
+                <h3>Saved Models</h3>
+                <div id="saved-models-list">
+                    </div>
+            </div>
+            
+            <div class="queue-section">
+                <div class="queue-title">
+                    <i class="fas fa-list" aria-hidden="true"></i> Question Queue
+                </div>
+                <ul class="queue-list" id="queue-list">
+                    </ul>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="chat-header">
+                <h2>AI Assistant</h2>
+                <div class="status-indicator" id="status-indicator">Ready to chat</div>
+            </div>
+            
+            <div class="chat-container" id="chat-container">
+                <div class="message ai-message">
+                    <div class="message-content">
+                        <strong>Hello! I'm your multi-model AI assistant.</strong> You can ask me anything using text or voice, and if I'm already answering a question, I'll queue your next one and answer it when I'm done. Go to the sidebar to configure your API keys.
+                    </div>
+                    <div class="message-meta">AI Assistant • Just now</div>
+                </div>
+            </div>
+            
+            <div class="input-container">
+                <input type="text" id="question-input" placeholder="Type your question or click the mic to speak..." autocomplete="off" disabled aria-label="Question input">
+                <button class="voice-btn" id="voice-btn" title="Voice Input" aria-label="Start voice input">
+                    <i class="fas fa-microphone" aria-hidden="true"></i>
+                </button>
+                <button id="send-btn" disabled aria-label="Send question"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send</button>
+            </div>
+            
+            <div class="voice-status" id="voice-status">
+                Voice input: Ready
+            </div>
+        </div>
+    </div>
+
+    <div class="seo-content">
+        <h2>Multi-Model AI Chat Assistant with Advanced Queue System</h2>
+        <p>Our cutting-edge AI chat assistant supports multiple AI models including Google Gemini, OpenAI GPT, Anthropic Claude, Meta Llama, Mistral AI, and custom models. With our innovative queue system, you can ask multiple questions simultaneously, and the AI will process them in order, ensuring you get comprehensive answers to all your queries.</p>
+        
+        <div class="privacy-note">
+            <strong>Privacy First:</strong> All your conversations and API keys are stored locally in your browser. We don't collect or store any of your data on our servers.
+        </div>
+        
+        <div class="model-info">
+            <h4>Supported AI Models</h4>
+            <ul>
+                <li><strong>Google Gemini</strong> - Google's advanced multimodal AI model with excellent reasoning capabilities</li>
+                <li><strong>OpenAI GPT</strong> - The powerful language model from OpenAI with strong natural language understanding</li>
+                <li><strong>Anthropic Claude</strong> - AI assistant focused on helpfulness and harmlessness with long context windows</li>
+                <li><strong>Meta Llama</strong> - Open-source language model from Meta with strong performance</li>
+                <li><strong>Mistral AI</strong> - Efficient and powerful open-weight models with strong reasoning capabilities</li>
+                <li><strong>Custom Models</strong> - Support for any API-compatible AI model</li>
+            </ul>
+        </div>
+        
+        <h3>Key Features of Our Advanced AI Chat Assistant</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Multi-Model Support</h4>
+                <p>Switch between different AI models or use multiple models simultaneously for diverse perspectives and comparisons.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Intelligent Queue System</h4>
+                <p>Ask multiple questions without waiting for previous responses. The AI processes them in order with visual queue tracking.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Voice Input Support</h4>
+                <p>Use your microphone to ask questions hands-free with advanced speech-to-text technology.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Secure API Key Management</h4>
+                <p>Your API keys are stored locally in your browser's secure storage and never transmitted to our servers.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Cross-Platform Compatibility</h4>
+                <p>Works perfectly on desktop, tablet, and mobile devices with a fully responsive design.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Real-time Feedback</h4>
+                <p>Visual indicators show when the AI is processing your questions and generating responses.</p>
+            </div>
+        </div>
+        
+        <h3>How to Use the Multi-Model AI Chat Assistant</h3>
+        <p>To get started, select your preferred AI model from the dropdown menu in the sidebar and enter the corresponding API key. You can save multiple API keys for different models and switch between them easily. Once configured, you can begin asking questions via text input or voice command. The assistant will process your questions in the order they were received, with a visual queue showing your pending questions.</p>
+        
+        <div class="faq-section">
+            <h3>Frequently Asked Questions</h3>
+            
+            <div class="faq-item">
+                <div class="faq-question">How do I get API keys for different AI models? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    You can obtain API keys from the respective providers: Google AI Studio for Gemini, OpenAI platform for GPT, Anthropic for Claude, and so on. Most providers offer free tiers or credits to get started.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Is my conversation data stored or shared? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    No, all conversations happen directly between your browser and the AI model APIs. We don't store any of your questions, API keys, or the AI's responses on our servers. Your data remains private and secure.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I use multiple AI models at the same time? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    Yes, you can save API keys for multiple models and switch between them. Some advanced users even use multiple models simultaneously to compare responses and get different perspectives.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Which browsers support all features? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    Chrome, Firefox, Edge, and Safari all support the core functionality. Voice input requires HTTPS and works best in Chrome and Edge. The application is designed to work on all modern browsers.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">How does the queue system work? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    When you ask multiple questions in quick succession, they're added to a queue. The AI processes one question at a time, moving to the next one when the previous response is complete. You can see all queued questions and remove them if needed.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Is there a limit to how many questions I can queue? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    The practical limit depends on your browser's memory capacity, but you can typically queue dozens of questions without issues. The interface will show you all queued questions for easy management.
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h3>Ready to Experience Multi-Model AI Conversations?</h3>
+            <p>Start using the most advanced AI chat assistant with queue management today</p>
+            <a href="#" class="cta-button">Get Started Now</a>
+        </div>
+        
+        <p><strong>Experience the power of multiple AI models in one convenient interface.</strong> Whether you're researching topics, comparing model capabilities, getting help with problems, or just curious about AI technology, our multi-model assistant is ready to help 24/7 with its innovative queue management system.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatContainer = document.getElementById('chat-container');
+            const questionInput = document.getElementById('question-input');
+            const sendBtn = document.getElementById('send-btn');
+            const voiceBtn = document.getElementById('voice-btn');
+            const voiceStatus = document.getElementById('voice-status');
+            const queueList = document.getElementById('queue-list');
+            const statusIndicator = document.getElementById('status-indicator');
+            const apiKeyInput = document.getElementById('api-key-input');
+            const apiEndpoint = document.getElementById('api-endpoint');
+            const modelSelect = document.getElementById('model-select');
+            const saveApiKeyBtn = document.getElementById('save-api-key');
+            const savedModelsList = document.getElementById('saved-models-list');
+            const notification = document.getElementById('notification');
+            
+            let isProcessing = false;
+            let questionQueue = [];
+            let currentModel = 'gemini-pro';
+            let recognition = null;
+            
+            // Model configuration
+            const modelConfigs = {
+                'gemini-pro': { name: 'Google Gemini Pro', endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent' },
+                'gemini-1.5-flash': { name: 'Gemini 1.5 Flash', endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent' },
+                'gemini-1.5-pro': { name: 'Gemini 1.5 Pro', endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent' },
+                'gpt-3.5-turbo': { name: 'OpenAI GPT-3.5 Turbo', endpoint: 'https://api.openai.com/v1/chat/completions' },
+                'gpt-4': { name: 'OpenAI GPT-4', endpoint: 'https://api.openai.com/v1/chat/completions' },
+                'claude-3-sonnet': { name: 'Anthropic Claude 3 Sonnet', endpoint: 'https://api.anthropic.com/v1/messages' },
+                'claude-3-opus': { name: 'Anthropic Claude 3 Opus', endpoint: 'https://api.anthropic.com/v1/messages' },
+                'llama2': { name: 'Meta Llama 2', endpoint: '' },
+                'llama3': { name: 'Meta Llama 3', endpoint: '' },
+                'mistral': { name: 'Mistral AI', endpoint: 'https://api.mistral.ai/v1/chat/completions' },
+                'custom': { name: 'Custom API', endpoint: '' }
+            };
+            
+            // --- FIX START: Centralized UI state management ---
+
+            /**
+             * Updates the API key inputs and chat functionality based on the selected model.
+             * Reads from localStorage to see if a key is saved for the model.
+             * @param {string} modelId - The identifier for the selected AI model (e.g., 'gemini-pro').
+             */
+            function updateApiKeyUI(modelId) {
+                const savedKeys = JSON.parse(localStorage.getItem('apiKeys') || '{}');
+                const modelData = savedKeys[modelId];
+
+                // Toggle endpoint field visibility for custom models
+                if (modelId === 'custom' || modelId === 'llama2' || modelId === 'llama3') {
+                    apiEndpoint.style.display = 'block';
+                } else {
+                    apiEndpoint.style.display = 'none';
+                }
+
+                if (modelData && modelData.key) {
+                    // Key exists for the selected model, so populate inputs and enable chat
+                    apiKeyInput.value = modelData.key;
+                    apiEndpoint.value = modelData.endpoint || (modelConfigs[modelId] ? modelConfigs[modelId].endpoint : '');
+                    questionInput.disabled = false;
+                    sendBtn.disabled = false;
+                } else {
+                    // No key exists, so clear inputs and disable chat
+                    apiKeyInput.value = '';
+                    // For custom models, clear the endpoint field if no key is saved
+                    apiEndpoint.value = (modelId === 'custom' || modelId === 'llama2' || modelId === 'llama3') ? '' : (modelConfigs[modelId] ? modelConfigs[modelId].endpoint : '');
+                    questionInput.disabled = true;
+                    sendBtn.disabled = true;
+                }
+            }
+            
+            // --- FIX END ---
+            
+            // Function to add message to chat
+            function addMessage(content, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.innerHTML = content.replace(/\n/g, '<br>');
+                
+                const metaDiv = document.createElement('div');
+                metaDiv.className = 'message-meta';
+                const timestamp = new Date().toLocaleTimeString();
+                metaDiv.innerHTML = isUser ? `You • ${timestamp}` : `AI Assistant (${modelConfigs[currentModel].name}) • ${timestamp}`;
+                
+                messageDiv.appendChild(contentDiv);
+                messageDiv.appendChild(metaDiv);
+                chatContainer.appendChild(messageDiv);
+                
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            // Update saved models list in the sidebar
+            function updateSavedModelsList() {
+                const savedKeys = JSON.parse(localStorage.getItem('apiKeys') || '{}');
+                savedModelsList.innerHTML = '';
+                
+                if (Object.keys(savedKeys).length === 0) {
+                    savedModelsList.innerHTML = '<p style="font-size: 14px; opacity: 0.8;">No API keys saved yet.</p>';
+                    return;
+                }
+                
+                for (const model in savedKeys) {
+                    const modelEl = document.createElement('div');
+                    modelEl.className = 'saved-model-item';
+                    modelEl.innerHTML = `
+                        <span class="saved-model-name">${savedKeys[model].name}</span>
+                        <button class="model-delete" data-model="${model}" title="Delete API key"><i class="fas fa-trash"></i></button>
+                    `;
+                    savedModelsList.appendChild(modelEl);
+                }
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.model-delete').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const modelToDelete = this.getAttribute('data-model');
+                        const savedKeys = JSON.parse(localStorage.getItem('apiKeys') || '{}');
+                        const modelName = savedKeys[modelToDelete].name;
+                        delete savedKeys[modelToDelete];
+                        localStorage.setItem('apiKeys', JSON.stringify(savedKeys));
+                        updateSavedModelsList();
+                        
+                        // --- FIX START: Update UI if the active model's key was deleted ---
+                        if (modelToDelete === currentModel) {
+                            updateApiKeyUI(currentModel);
+                        }
+                        // --- FIX END ---
+                        
+                        showNotification(`API key for ${modelName} removed`);
+                    });
+                });
+            }
+
+            // Show notification function
+            function showNotification(message, isError = false) {
+                notification.textContent = message;
+                notification.style.background = isError ? 'var(--danger-color)' : 'var(--success-color)';
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // --- FIX START: Handle model selection change ---
+            modelSelect.addEventListener('change', function() {
+                currentModel = this.value;
+                updateApiKeyUI(currentModel); // Centralized logic to update UI state
+            });
+            // --- FIX END ---
+            
+            // FAQ toggle functionality
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    this.nextElementSibling.classList.toggle('show');
+                    this.querySelector('i').classList.toggle('fa-chevron-down');
+                    this.querySelector('i').classList.toggle('fa-chevron-up');
+                });
+            });
+            
+            // Setup Speech Recognition
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+                
+                recognition.onstart = () => {
+                    voiceBtn.classList.add('listening');
+                    voiceStatus.textContent = "Voice input: Listening...";
+                };
+                
+                recognition.onresult = (event) => {
+                    questionInput.value = event.results[0][0].transcript;
+                    setTimeout(() => handleQuestion(), 500); // Auto-send after a short delay
+                };
+                
+                recognition.onerror = (event) => {
+                    voiceStatus.textContent = "Voice input: Error - " + event.error;
+                };
+                
+                recognition.onend = () => {
+                    voiceBtn.classList.remove('listening');
+                    voiceStatus.textContent = "Voice input: Ready";
+                };
+            } else {
+                voiceBtn.disabled = true;
+                voiceStatus.textContent = "Voice input: Not supported";
+            }
+            
+            // Save API key button
+            saveApiKeyBtn.addEventListener('click', function() {
+                const keyToSave = apiKeyInput.value.trim();
+                const endpoint = apiEndpoint.value.trim();
+                
+                if (!keyToSave) {
+                    showNotification('Please enter a valid API key', true);
+                    return;
+                }
+                
+                const savedKeys = JSON.parse(localStorage.getItem('apiKeys') || '{}');
+                savedKeys[currentModel] = { 
+                    key: keyToSave, 
+                    endpoint: endpoint || modelConfigs[currentModel].endpoint,
+                    name: modelConfigs[currentModel].name
+                };
+                localStorage.setItem('apiKeys', JSON.stringify(savedKeys));
+                
+                updateSavedModelsList();
+                questionInput.disabled = false;
+                sendBtn.disabled = false;
+                
+                showNotification(`API key for ${modelConfigs[currentModel].name} saved!`);
+                addMessage(`API key saved for <b>${modelConfigs[currentModel].name}</b>. You can now ask questions.`, false);
+            });
+            
+            // Voice button event
+            voiceBtn.addEventListener('click', () => recognition && recognition.start());
+            
+            // Function to call AI API based on selected model
+            async function callAIAPI(question) {
+                const savedKeys = JSON.parse(localStorage.getItem('apiKeys') || '{}');
+                const modelConfig = savedKeys[currentModel];
+                
+                if (!modelConfig || !modelConfig.key) {
+                    throw new Error(`API key for ${modelConfigs[currentModel].name} not configured`);
+                }
+                
+                try {
+                    let response;
+                    switch(currentModel) {
+                        case 'gemini-pro': case 'gemini-1.5-flash': case 'gemini-1.5-pro':
+                            response = await fetch(`${modelConfig.endpoint}?key=${modelConfig.key}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ contents: [{ parts: [{ text: question }] }] })
+                            });
+                            break;
+                        case 'gpt-3.5-turbo': case 'gpt-4':
+                            response = await fetch(modelConfig.endpoint, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${modelConfig.key}` },
+                                body: JSON.stringify({ model: currentModel, messages: [{ role: "user", content: question }], temperature: 0.7 })
+                            });
+                            break;
+                        case 'claude-3-sonnet': case 'claude-3-opus':
+                            response = await fetch(modelConfig.endpoint, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', 'x-api-key': modelConfig.key, 'anthropic-version': '2023-06-01' },
+                                body: JSON.stringify({ model: currentModel, max_tokens: 1024, messages: [{ role: "user", content: question }] })
+                            });
+                            break;
+                        default:
+                            response = await fetch(modelConfig.endpoint, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${modelConfig.key}` },
+                                body: JSON.stringify({ model: currentModel, prompt: question, max_tokens: 1000 })
+                            });
+                    }
+                    
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error?.message || 'API request failed with status ' + response.status);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Extract response based on model
+                    switch(currentModel) {
+                        case 'gemini-pro': case 'gemini-1.5-flash': case 'gemini-1.5-pro':
+                            return data.candidates[0].content.parts[0].text;
+                        case 'gpt-3.5-turbo': case 'gpt-4':
+                            return data.choices[0].message.content;
+                        case 'claude-3-sonnet': case 'claude-3-opus':
+                            return data.content[0].text;
+                        default:
+                            return data.choices?.[0]?.text || data.response || data.result || data.completion || 'Unexpected response format.';
+                    }
+                } catch (error) {
+                    console.error('API Error:', error);
+                    throw error;
+                }
+            }
+            
+            // Function to show/remove typing indicator
+            function showTypingIndicator() {
+                if (document.getElementById('typing-indicator')) return;
+                const typingDiv = `<div class="message ai-message" id="typing-indicator"><div class="typing-indicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div></div>`;
+                chatContainer.insertAdjacentHTML('beforeend', typingDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            function removeTypingIndicator() {
+                document.getElementById('typing-indicator')?.remove();
+            }
+            
+            // Queue Management
+            function updateQueueDisplay() {
+                queueList.innerHTML = questionQueue.map((q, i) => `
+                    <li class="queue-item">
+                        <span>${q.length > 30 ? q.substring(0, 30) + '...' : q}</span>
+                        <button class="remove-btn" onclick="removeFromQueue(${i})">&times;</button>
+                    </li>
+                `).join('');
+                
+                if (isProcessing) {
+                    statusIndicator.textContent = `Processing... (${questionQueue.length} more in queue)`;
+                } else if (questionQueue.length > 0) {
+                    statusIndicator.textContent = `${questionQueue.length} questions in queue`;
+                } else {
+                    statusIndicator.textContent = 'Ready to chat';
+                }
+            }
+            
+            window.removeFromQueue = (index) => {
+                questionQueue.splice(index, 1);
+                updateQueueDisplay();
+            };
+
+            async function processQueue() {
+                if (isProcessing || questionQueue.length === 0) return;
+                
+                isProcessing = true;
+                const question = questionQueue.shift(); // Get first question and remove it
+                updateQueueDisplay();
+                showTypingIndicator();
+                
+                try {
+                    const response = await callAIAPI(question);
+                    addMessage(response, false);
+                } catch (error) {
+                    addMessage(`<strong>Error:</strong> ${error.message}`, false);
+                } finally {
+                    removeTypingIndicator();
+                    isProcessing = false;
+                    processQueue(); // Process next item
+                }
+            }
+
+            // Function to handle new question
+            function handleQuestion() {
+                const question = questionInput.value.trim();
+                if (question === '') return;
+                
+                addMessage(question, true);
+                questionInput.value = '';
+                questionQueue.push(question);
+                updateQueueDisplay();
+                
+                if (!isProcessing) {
+                    processQueue();
+                }
+            }
+            
+            // Event listeners for sending questions
+            sendBtn.addEventListener('click', handleQuestion);
+            questionInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleQuestion());
+
+            // --- FIX START: Initial setup on page load ---
+            currentModel = modelSelect.value;
+            updateSavedModelsList();
+            updateApiKeyUI(currentModel); // Check for saved keys on load
+
+            if (!questionInput.disabled) {
+                 setTimeout(() => {
+                    addMessage(`Loaded API key for <b>${modelConfigs[currentModel].name}</b>. You are ready to chat.`, false);
+                }, 500);
+            }
+            // --- FIX END ---
+        });
+    </script>
+</body>
+</html>
+```
